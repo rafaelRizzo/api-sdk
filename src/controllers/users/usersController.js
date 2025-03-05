@@ -1,73 +1,79 @@
-import { UsersModels } from '../../models/users/usersModels.js';
+import { UsersModels } from '../../models/users/usersModels.js'
 
-const usersModels = new UsersModels();
+const usersModels = new UsersModels()
 
 export class UsersControllers {
-    // Adiciona um novo usuário
+
     async add(request, reply) {
         try {
-            const newUser = await usersModels.add(request.body);
+            const newUser = await usersModels.add(request.body)
+
             return reply.code(200).send({
                 message: 'Usuário adicionado com sucesso',
                 data: newUser
-            });
+            })
         } catch (error) {
             if (error.message === 'Email já está em uso') {
-                return reply.code(400).send({ message: error.message });
+                return reply.code(400).send({ message: error.message })
             }
-            return reply.code(500).send({ message: 'Erro interno ao adicionar usuário' });
+
+            return reply.code(500).send({ message: 'Erro interno ao adicionar usuário' })
         }
     }
 
-    // Retorna todos os usuários
     async getAll(request, reply) {
         try {
-            const users = await usersModels.getAll();
+            const users = await usersModels.getAll()
+
             return reply.code(200).send({
                 message: 'Lista de usuários obtida com sucesso',
                 data: users
-            });
+            })
+
         } catch (error) {
-            return reply.code(500).send({ message: 'Erro interno ao listar usuários' });
+            return reply.code(500).send({ message: 'Erro interno ao listar usuários' })
         }
     }
 
-    // Busca um usuário por ID
     async getById(request, reply) {
         try {
-            const user = await usersModels.getById(request.params.id);
+            const user = await usersModels.getById(request.params.id)
+
             if (!user) {
-                return reply.code(404).send({ message: 'Usuário não encontrado' });
+                return reply.code(404).send({ message: 'Usuário não encontrado' })
             }
+
             return reply.code(200).send({
                 message: 'Usuário obtido com sucesso',
                 data: user
-            });
+            })
         } catch (error) {
-            return reply.code(500).send({ message: 'Erro interno ao buscar usuário' });
+            return reply.code(500).send({ message: 'Erro interno ao buscar usuário' })
         }
     }
 
-    // Deleta um usuário por ID
     async delete(request, reply) {
         try {
-            const deleted = await usersModels.delete(request.params.id);
+            const deleted = await usersModels.delete(request.params.id)
+
             if (!deleted) {
-                return reply.code(404).send({ message: 'Usuário não encontrado' });
+                return reply.code(404).send({ message: 'Usuário não encontrado' })
             }
-            return reply.code(200).send({ message: 'Usuário deletado com sucesso' });
+
+            return reply.code(200).send({ message: 'Usuário deletado com sucesso' })
         } catch (error) {
             return reply.code(500).send({ message: 'Erro interno ao deletar usuário' });
         }
     }
 
-    // Atualiza um usuário por ID
     async update(request, reply) {
         try {
             const updatedUser = await usersModels.update(request.params.id, request.body);
+
             if (!updatedUser) {
                 return reply.code(404).send({ message: 'Usuário não encontrado' });
             }
+
             return reply.code(200).send({
                 message: 'Usuário atualizado com sucesso',
                 data: updatedUser
@@ -76,6 +82,7 @@ export class UsersControllers {
             if (error.message === 'Email já está em uso') {
                 return reply.code(400).send({ message: error.message });
             }
+
             return reply.code(500).send({ message: 'Erro interno ao atualizar usuário' });
         }
     }
