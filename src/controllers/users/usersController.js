@@ -27,7 +27,7 @@ export class UsersControllers {
 
             return reply.code(200).send({
                 message: 'Lista de usuários obtida com sucesso',
-                data: users
+                users: users
             })
 
         } catch (error) {

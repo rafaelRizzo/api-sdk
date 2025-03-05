@@ -13,6 +13,12 @@ enum Role {
   ADMIN
 }
 
+enum Status {
+  ACTIVE
+  BLOOCKED
+  DISABLED
+}
+
 model User {
   id          Int      @id @default(autoincrement())
   email       String   @unique
@@ -20,6 +26,7 @@ model User {
   password    String?
   token       String?
   role        Role     @default(USER)
+  status      Status   @default(ACTIVE)
   last_update DateTime @default(now())
   created_at  DateTime @default(now())
 }

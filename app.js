@@ -1,4 +1,7 @@
 // Importação dos módulos necessários
+import dotenv from 'dotenv';
+dotenv.config();
+
 import Fastify from 'fastify' // Framework principal para criar o servidor
 import helmet from '@fastify/helmet' // Middleware para segurança de cabeçalhos HTTP
 import cors from '@fastify/cors' // Middleware para configuração de Cross-Origin Resource Sharing
@@ -6,6 +9,7 @@ import swagger from '@fastify/swagger' // Geração de documentação OpenAPI
 import swaggerUI from '@fastify/swagger-ui' // Interface gráfica para a documentação Swagger
 
 import { usersRoutes } from './src/routes/users/usersRoutes.js' // Rotas específicas dos usuários
+import { authRoutes } from './src/routes/auth/authRoutes.js' // Rotas específicas dos usuários
 import { logRequest } from './src/utils/logger/index.js' // Função utilitária para log de requisições
 
 // Inicialização do servidor Fastify 
@@ -26,6 +30,19 @@ await fastify.register(helmet, {
         }
     }
 });
+
+// Remove todos os parsers padrões
+fastify.removeAllContentTypeParsers()
+
+// Adiciona somente parser para application/json
+fastify.addContentTypeParser('application/json', { parseAs: 'string' }, (req, body, done) => {
+    try {
+        const json = JSON.parse(body)
+        done(null, json)
+    } catch (err) {
+        done(err)
+    }
+})
 
 // Registro do CORS para controle de acesso entre domínios
 await fastify.register(cors, {
@@ -63,6 +80,7 @@ await fastify.register(swaggerUI, {
 
 // Registro das rotas da aplicação
 await fastify.register(usersRoutes); // Carrega as rotas definidas no módulo usersRoutes
+await fastify.register(authRoutes); // Carrega as rotas definidas no módulo usersRoutes
 
 // Inicialização do servidor
 fastify.listen({ port: 3000, host: 'localhost' }, (err, address) => {

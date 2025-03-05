@@ -11,7 +11,7 @@ Este repositório tem como objetivo demonstrar a criação de uma API RESTFUL ut
 - LOGS
 - MODELO MVC
 - SCHEMAS
-- ROTAS
+- AUTH
 - MIDDLEWARES
 
 ## MAPEAMENTO DOS ERROS DO PRISMA CLIENT

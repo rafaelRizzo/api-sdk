@@ -12,18 +12,11 @@ export const loginSchema = {
     },
     response: {
         200: {
-            description: 'Usuário criado com sucesso',
+            description: 'Usuário autenticado com sucesso',
             type: 'object',
             properties: {
                 message: { type: 'string' },
-                data: {
-                    type: 'object',
-                    properties: {
-                        id: { type: 'integer', description: 'ID do usuário criado' },
-                        name: { type: 'string', description: 'Nome do usuário' },
-                        email: { type: 'string', description: 'Email do usuário' }
-                    }
-                }
+                token: { type: 'string', description: 'Token do usuário' }
             }
         },
         400: {
@@ -41,4 +34,4 @@ export const loginSchema = {
             }
         }
     }
-};
+}

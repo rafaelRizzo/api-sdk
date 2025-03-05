@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client'
 import { generateHash } from '../../utils/bcrypt/index.js'
-import logger from '../../utils/logger/index.js'
 
 // Instancia o Prisma Client
 const prisma = new PrismaClient()
@@ -38,10 +37,11 @@ export class UsersModels {
             const users = await prisma.user.findMany({
                 select: {
                     id: true,
-                    name: true,
                     email: true,
-                    createdAt: true,
-                    updatedAt: true
+                    name: true,
+                    role: true,
+                    last_update: true,
+                    created_at: true
                 }
             })
 
