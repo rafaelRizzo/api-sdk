@@ -1,7 +1,7 @@
 # SDK API RESTFUL 
 
 ## OBJETIVO
-A fim de facilitar o desenvolvimento de APIs, foi criado um SDK (kit de desenvolvimento de software) para minhas API's
+A fim de facilitar o desenvolvimento de APIs, foi criado um SDK (kit de desenvolvimento de software) para minhas API's, o Swagger juntamente com os Schemas do Prisma fazem com que a documentação seja feita de forma automática, facilitando a vida do desenvolvedor e de quem for usar a API.
 
 ## INTRODUÇÃO
 Este repositório tem como objetivo demonstrar a criação de uma API RESTFUL utilizando as tecnologias:
@@ -13,6 +13,30 @@ Este repositório tem como objetivo demonstrar a criação de uma API RESTFUL ut
 - SCHEMAS
 - AUTH
 - MIDDLEWARES
+
+## Como usar o SDK?
+
+Clone o repositório: `git clone https://github.com/rafaelRizzo/api-sdk`
+
+Depois instale os pacotes: `npm install`
+
+### Configure o .env
+***
+
+### Configurando o Prisma ORM
+O Prisma é um ORM que permite a criação de APIs de forma rápida e segura, é um "Orquestrador de Banco de dados", além de fácil migração entre DB's, nesse por exemplo estou usando o Postgresql mas você pode configurar a string de conexão de um MYSQL normalmente!
+
+Para Iniciar o prisma siga os passos abaixo:
+
+Execute: `npx prisma generate`
+
+Execute: `npx prisma db push` (Cuidado ao utilizar esse comando pois irá criar as tabelas no seu banco de dados de acordo com que está no SCHEMA do prisma)
+
+Feito isso basta iniciar o projeto com o comando: `npm run dev`
+
+E acessar a documentação da API em: `http://localhost:3000/docs`
+
+<img src="./src/public//overview-swagger.png" width=800>
 
 ## MAPEAMENTO DOS ERROS DO PRISMA CLIENT
 | Código  | Nome                        | Explicação                                                                                                |

@@ -79,8 +79,8 @@ await fastify.register(swaggerUI, {
 });
 
 // Registro das rotas da aplicação
-await fastify.register(usersRoutes); // Carrega as rotas definidas no módulo usersRoutes
 await fastify.register(authRoutes); // Carrega as rotas definidas no módulo usersRoutes
+await fastify.register(usersRoutes); // Carrega as rotas definidas no módulo usersRoutes
 
 // Inicialização do servidor
 fastify.listen({ port: 3000, host: 'localhost' }, (err, address) => {

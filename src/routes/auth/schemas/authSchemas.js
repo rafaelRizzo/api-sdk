@@ -1,7 +1,7 @@
 export const loginSchema = {
-    description: 'Cria um novo usuário no sistema',
-    tags: ['Users'],
-    summary: 'Adiciona um usuário com nome e email',
+    description: 'Autenticação do usuário',
+    tags: ['Auth'],
+    summary: 'Autenticação do usuário, passando o email e senha, retornando um token',
     body: {
         type: 'object',
         properties: {
