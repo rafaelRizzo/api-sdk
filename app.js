@@ -58,11 +58,26 @@ await fastify.register(cors, {
 // Registro do Swagger para geração da documentação da API
 await fastify.register(swagger, {
     openapi: {
+        openapi: '3.0.0',
         info: {
-            title: 'Titulo para a documentação no Swagger WEB', // Título da API exibido na documentação
-            description: 'Breve descrição da API', // Descrição da API
-            version: '1.0.0' // Versão da API
-        }
+            title: 'Título para a documentação no Swagger WEB',
+            description: 'Breve descrição da API',
+            version: '1.0.0'
+        },
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT'
+                }
+            }
+        },
+        security: [
+            {
+                bearerAuth: []
+            }
+        ]
     }
 });
 

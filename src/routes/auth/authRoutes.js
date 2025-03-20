@@ -5,7 +5,10 @@ import { loginSchema } from './schemas/authSchemas.js'
 const authController = new AuthControllers()
 
 export const authRoutes = async (fastify, options) => {
-    fastify.post('/login', { schema: loginSchema }, async (request, reply) => {
-        return await authController.login(request, reply)
+    fastify.post('/login', {
+        schema: loginSchema,
+        handler: async (request, reply) => {
+            await authController.login(request, reply)
+        }
     })
 }

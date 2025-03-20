@@ -22,7 +22,7 @@ export class UsersModels {
                 }
             })
 
-            return newUser
+            return true
         } catch (error) {
             if (error.code === 'P2002') {
                 throw new Error('Email já está em uso')
@@ -34,16 +34,7 @@ export class UsersModels {
 
     async getAll() {
         try {
-            const users = await prisma.user.findMany({
-                select: {
-                    id: true,
-                    email: true,
-                    name: true,
-                    role: true,
-                    last_update: true,
-                    created_at: true
-                }
-            })
+            const users = await prisma.user.findMany()
 
             return users
         } catch (error) {
@@ -60,8 +51,8 @@ export class UsersModels {
                     id: true,
                     name: true,
                     email: true,
-                    createdAt: true,
-                    updatedAt: true
+                    last_update: true,
+                    created_at: true
                 },
                 where: { id: userId }
             })
@@ -105,7 +96,7 @@ export class UsersModels {
             }
 
             if (data.password) {
-                updateData.password = generateHash(data.password)
+                updateData.password = await generateHash(data.password)
             }
 
             // Faz o update dinâmico

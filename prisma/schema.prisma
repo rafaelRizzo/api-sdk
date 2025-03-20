@@ -29,4 +29,9 @@ model User {
   status      Status   @default(ACTIVE)
   last_update DateTime @default(now())
   created_at  DateTime @default(now())
+
+  created_by Int?
+  creator    User? @relation("UserCreator", fields: [created_by], references: [id])
+
+  created_users User[] @relation("UserCreator")
 }

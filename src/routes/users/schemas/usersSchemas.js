@@ -2,11 +2,18 @@ export const createUserSchema = {
     description: 'Cria um novo usuário no sistema',
     tags: ['Users'],
     summary: 'Adiciona um usuário com email e senha',
+    headers: {
+        type: 'object',
+        properties: {
+            Authorization: { type: 'string', description: 'Token de autorização' }
+        },
+        required: ['Authorization']
+    },
     body: {
         type: 'object',
         properties: {
             email: { type: 'string', format: 'email', description: 'Email do usuário' },
-            passowrd: { type: 'string', description: 'Senha do usuário' }
+            password: { type: 'string', description: 'Senha do usuário' }
         },
         required: ['email', 'password']
     },
@@ -16,11 +23,12 @@ export const createUserSchema = {
             type: 'object',
             properties: {
                 message: { type: 'string' },
-                properties: {
-                    id: { type: 'integer', description: 'ID do usuário criado' },
-                    name: { type: 'string', description: 'Nome do usuário' },
-                    email: { type: 'string', description: 'Email do usuário' }
-                }
+                id: { type: 'integer', description: 'ID do usuário criado' },
+                name: { type: 'string', description: 'Nome do usuário' },
+                email: { type: 'string', description: 'Email do usuário' },
+                role: { type: 'string', description: 'Permissão do usuário' },
+                status: { type: 'string', description: 'Status do usuário' },
+                created_at: { type: 'string', description: 'Data da criação do usuário' }
             }
         },
         400: {
@@ -37,27 +45,16 @@ export const getAllUsersSchema = {
     description: 'Lista todos os usuários cadastrados',
     tags: ['Users'],
     summary: 'Retorna a lista completa de usuários',
+    headers: {
+        type: 'object',
+        required: ['Authorization']
+    },
     response: {
-        200: {
-            description: 'Lista de usuários retornada com sucesso',
+        401: {
+            description: 'Token ausente ou inválido',
             type: 'object',
             properties: {
-                message: {
-                    type: 'string',
-                    description: 'Mensagem de sucesso'
-                },
-                users: {
-                    type: 'array',
-                    description: 'Lista de usuários',
-                    items: {
-                        type: 'object',
-                        properties: {
-                            id: { type: 'integer', description: 'ID do usuário' },
-                            name: { type: 'string', description: 'Nome do usuário' },
-                            email: { type: 'string', description: 'Email do usuário' }
-                        }
-                    }
-                }
+                message: { type: 'string' }
             }
         },
         500: {
@@ -74,6 +71,10 @@ export const getUserByIdSchema = {
     description: 'Busca um usuário específico pelo ID',
     tags: ['Users'],
     summary: 'Retorna os detalhes de um usuário pelo seu ID',
+    headers: {
+        type: 'object',
+        required: ['Authorization']
+    },
     params: {
         type: 'object',
         properties: {
@@ -118,6 +119,10 @@ export const updateUserSchema = {
     description: 'Atualiza os dados de um usuário existente',
     tags: ['Users'],
     summary: 'Modifica o nome e/ou email de um usuário pelo ID',
+    headers: {
+        type: 'object',
+        required: ['Authorization']
+    },
     params: {
         type: 'object',
         properties: {
@@ -137,15 +142,7 @@ export const updateUserSchema = {
             description: 'Usuário atualizado com sucesso',
             type: 'object',
             properties: {
-                message: { type: 'string', description: 'Mensagem de sucesso' },
-                data: {
-                    type: 'object',
-                    properties: {
-                        id: { type: 'integer', description: 'ID do usuário' },
-                        name: { type: 'string', description: 'Nome atualizado do usuário' },
-                        email: { type: 'string', description: 'Email atualizado do usuário' }
-                    }
-                }
+                message: { type: 'string', description: 'Mensagem de sucesso' }
             }
         },
         400: {
@@ -176,6 +173,10 @@ export const deleteUserSchema = {
     description: 'Remove um usuário do sistema',
     tags: ['Users'],
     summary: 'Deleta um usuário pelo seu ID',
+    headers: {
+        type: 'object',
+        required: ['Authorization']
+    },
     params: {
         type: 'object',
         properties: {
